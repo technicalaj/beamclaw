@@ -15,7 +15,6 @@ Describe a behaviour in plain words. An LLM compiles a tiny, safety-checked prog
 ![Runs in 2 KB RAM](https://img.shields.io/badge/runs%20in-2%20KB%20RAM-ffb454)
 ![Radio: none](https://img.shields.io/badge/radio-none-37e0c4)
 ![Flash in browser](https://img.shields.io/badge/flash-in%20your%20browser-37e0c4)
-[![Stars](https://img.shields.io/github/stars/technicalaj/beamclaw?style=social)](https://github.com/technicalaj/beamclaw/stargazers)
 
 ### [🌐 Live site](https://beam-claw.com) · [▶ Console](https://beam-claw.com/app) · [⚡ Flash a board](https://beam-claw.com/flash) · [📖 Docs](https://beam-claw.com/docs)
 
@@ -39,6 +38,21 @@ Describe a behaviour in plain words. An LLM compiles a tiny, safety-checked prog
 
 > **Not "an LLM in 2 KB" (that's impossible) — it's LLM-compiled _agency_ in 2 KB.**
 > The model thinks once, off-chip. The chip acts forever, on its own.
+
+## 🆚 How it's different from the cloud "Claw" boards
+
+The 2026 wave — **OpenClaw → ESP-Claw (Espressif) → MimiClaw** — races to put an AI agent *on* a chip. Every one of them needs Wi-Fi, megabytes of PSRAM, and a round-trip to the cloud. BeamClaw is the honest opposite.
+
+| | **BeamClaw** | ESP-Claw / MimiClaw | USB (Firmata) |
+|---|:---:|:---:|:---:|
+| Radio | ✅ **none** | ❌ Wi-Fi required | none (wired) |
+| Chip RAM | ✅ **2 KB** | ≥ 400 KB | any |
+| Runs offline | ✅ **forever** | ❌ needs the cloud | needs a host PC |
+| How code arrives | ✅ **light** (screen → sensor) | Wi-Fi / flash | cable |
+| Program many at once | ✅ **yes — one screen** | ❌ no | ❌ no |
+| Receiver cost | ✅ **~$3 + 50¢** | ~$5–10 | board + cable |
+
+Not competing with the cloud Claws on raw power — owning the niche they *can't* serve: **air-gapped, 2 KB, light-delivered, offline.**
 
 ## ⚡ Quick start
 
