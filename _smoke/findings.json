@@ -1,0 +1,61 @@
+{
+  "project": "BeamClaw — beam-claw.com (live static site + clean URLs)",
+  "mode": "zero_tolerance",
+  "pass_threshold": 90,
+  "gates": {
+    "build_errors": 0,
+    "executed_core": true,
+    "regression_or_crash": false
+  },
+  "core_checks": [
+    {"name": "Site live: root 200 (.htaccess did not 500 the site)", "result": "verified", "evidence": "network log: https://beam-claw.com/ GET 200; full hero render screenshot"},
+    {"name": "/index.html -> / clean redirect (the user's explicit ask)", "result": "verified", "evidence": "navigated to /index.html; tab settled on https://beam-claw.com/"},
+    {"name": "Extensionless serving of /app /docs /flash", "result": "verified", "evidence": "screenshots + network 200 for each clean path"},
+    {"name": "Pages render fully — no blank-below-hero regression", "result": "verified", "evidence": "live DOM: 0 of 30 .reveal elements hidden; 4 page screenshots"},
+    {"name": "No-key console engine compiles an intent", "result": "verified", "evidence": "screenshot: 'blink the led' -> 'Blinking D13 at 2 Hz' + transmission bay"},
+    {"name": "Console clean (no uncaught JS errors)", "result": "verified", "evidence": "read_console_messages returned no messages across all loads"}
+  ],
+  "scenarios": [
+    {"id": 1, "channel": "web UI", "device": "desktop 1440", "state": "happy", "result": "passed", "core": true, "evidence": "/ -> 200, hero + photon canvas render"},
+    {"id": 2, "channel": "web UI", "device": "desktop", "state": "redirect", "result": "passed", "core": true, "evidence": "/index.html -> final URL / (301 clean root)"},
+    {"id": 3, "channel": "web UI", "device": "desktop", "state": "redirect", "result": "passed", "evidence": "/app.html -> final URL /app (.html stripped)"},
+    {"id": 4, "channel": "web UI", "device": "desktop", "state": "rewrite", "result": "passed", "evidence": "/app serves app.html (console UI + title)"},
+    {"id": 5, "channel": "web UI", "device": "desktop", "state": "rewrite", "result": "passed", "evidence": "/docs serves docs.html (title + content)"},
+    {"id": 6, "channel": "web UI", "device": "desktop", "state": "rewrite", "result": "passed", "evidence": "/flash serves flash.html (title + 'Web Serial ready')"},
+    {"id": 7, "channel": "web UI", "device": "desktop", "state": "error-404", "result": "passed", "evidence": "bogus path -> home page served via ErrorDocument"},
+    {"id": 8, "channel": "assets", "device": "desktop", "state": "happy", "result": "passed", "core": true, "evidence": "network: style.css/app.js/flash.js/firmware.js/fx.js/logo.svg/favicon.svg/architecture.svg/frame.svg all 200; zero 404/500"},
+    {"id": 9, "channel": "console engine", "device": "desktop", "state": "happy", "result": "passed", "core": true, "evidence": "'blink the led' -> D13 2Hz compile + beam stage opened"},
+    {"id": 10, "channel": "flasher (Web Serial)", "device": "desktop Chrome", "state": "capability", "result": "passed", "evidence": "flash.js detected Web Serial; Flash button enabled; 'Web Serial ready' badge"},
+    {"id": 11, "channel": "web UI", "device": "mobile <=720px", "state": "responsive", "result": "verified", "evidence": "live DOM/CSS: mobile media query active; .navtoggle display:inline-flex, .links column+display:none, .links.open display:flex; hero/grids collapse at <=980px. CAVEAT: live 390px pixel screenshot not captured (capture viewport did not follow window resize) — verified by rule inspection, not visual render"},
+    {"id": 12, "channel": "flasher (Web Serial)", "device": "real Arduino Uno", "state": "end-to-end flash", "result": "blocked", "evidence": "no Arduino hardware available to actually flash"},
+    {"id": 13, "channel": "optical beam (screen -> LDR)", "device": "real Uno + light sensor", "state": "end-to-end beam", "result": "blocked", "evidence": "no hardware; cannot beam light to a physical chip + confirm EEPROM run"}
+  ],
+  "categories": {
+    "build_integrity": {"checks": [
+      {"name": "4 pages end with </html>", "result": "verified"},
+      {"name": "JS syntax x4 (node --check)", "result": "verified"},
+      {"name": "no NUL-byte corruption", "result": "verified"},
+      {"name": "MIT license, no stale Noncommercial/PolyForm", "result": "verified"},
+      {"name": "pin parser 10/10 (the reported bug)", "result": "verified"},
+      {"name": "required element IDs + script tags present", "result": "verified"}
+    ]},
+    "core_functionality": {"checks": [
+      {"name": "clean URLs end-to-end (redirect + rewrite + 404)", "result": "verified", "core": true},
+      {"name": "no-key console engine", "result": "verified", "core": true},
+      {"name": "all 4 pages render", "result": "verified", "core": true}
+    ]},
+    "edge_handling": {"verified": 1, "failed": 0, "unverified": 1},
+    "regression_safety": {"checks": [
+      {"name": "blank-page bug fixed (0/30 reveal hidden, live)", "result": "verified"},
+      {"name": "fx.js strict-mode crash fixed (animation ran 'decoded 45/45', clean console)", "result": "verified"}
+    ]},
+    "performance": {"applicable": false},
+    "security_safety": {"verified": 1, "failed": 0, "unverified": 0}
+  },
+  "warnings": [
+    {"text": "Site is served over HTTP ('Not secure') — AutoSSL/HTTPS not yet enabled. Turn on before sharing widely (the .htaccess already has the force-HTTPS block ready to uncomment).", "core": false},
+    {"text": "Mobile verified via DOM/CSS rule inspection only; a live 390px pixel render was not visually captured (screenshot viewport did not follow the window resize).", "core": false},
+    {"text": "Nav 'GitHub' link is still the placeholder https://github.com/ — wire it to the real repo at publish time.", "core": false},
+    {"text": "Hardware paths BLOCKED (no board): flashing a real Uno over Web Serial, and beaming light to a physical chip, were not executed end-to-end.", "core": false}
+  ]
+}
