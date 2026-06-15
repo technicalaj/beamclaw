@@ -23,6 +23,20 @@ Describe a behaviour in plain words. An LLM compiles a tiny, safety-checked prog
 
 ---
 
+<div align="center">
+
+### 🎥 See it actually work — real hardware, no cuts
+
+[<img src="assets/demo-preview.gif" width="620" alt="BeamClaw live demo — beaming a program to a real Arduino by light"/>](https://beam-claw.com/#how)
+
+**[▶ Watch the full 90-second HD demo →](https://beam-claw.com/#how)**
+
+<sub>Type a behaviour → the screen beams it as light → a $3 Arduino runs it. Filmed in one take.</sub>
+
+</div>
+
+---
+
 > **Not "an LLM in 2 KB" (that's impossible) — it's LLM-compiled _agency_ in 2 KB.**
 > The model thinks once, off-chip. The chip acts forever, on its own.
 
