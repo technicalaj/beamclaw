@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BeamClaw Console — describe a behaviour, beam it to your Arduino by light</title>
+<meta name="description" content="Type what your Arduino should do in plain words. BeamClaw compiles a safe little program and beams it by light — no IDE, no cable. Built-ins are free; bring your own AI key for anything."/>
+<meta name="keywords" content="program Arduino plain English, beam code by light, no IDE Arduino console, BeamClaw app"/>
+<link rel="canonical" href="https://beam-claw.com/app.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="BeamClaw Console — talk, and your board comes alive by light"/>
+<meta property="og:description" content="Describe a behaviour in plain words; it compiles a safe program and beams it by light to your Arduino."/>
+<meta property="og:image" content="assets/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<link rel="stylesheet" href="assets/style.css"/>
+</head><body>
+<div class="bg-deck"></div><div class="bg-grid"></div><div class="bg-scan"></div>
+<canvas id="photons"></canvas>
+
+<nav class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/logo.svg" alt="BeamClaw" style="height:30px;width:auto;display:block"/></a>
+<button class="navtoggle" aria-label="menu" onclick="document.getElementById('nl').classList.toggle('open')">☰</button>
+<div class="links" id="nl"><a href="index.html">Home</a><a href="app.html" class="active">Console</a><a href="flash.html">Flash&nbsp;board</a><a href="docs.html">Docs</a></div>
+<span class="sp"></span><a class="btn sm ghost" href="https://github.com/technicalaj/beamclaw" target="_blank" rel="noopener">GitHub ↗</a>
+</div></nav>
+
+<section style="border-top:0;padding-top:var(--s8)"><div class="wrap">
+<div class="sec-head reveal">
+  <span class="eyebrow">the console</span>
+  <h2 class="h-sec">Tell your board what to do</h2>
+  <p class="lead">Plain words → a safe little program, beamed by light. Built-ins work with no setup; add your own key (⚙) for anything you can describe.</p>
+</div>
+
+<div class="console panel reveal" id="console" style="margin-top:24px">
+  <div class="top">
+    <span class="dot"></span>
+    <span class="ttl"><b>BEAM</b>CLAW · transmit console</span>
+    <span class="ses">SES · OPTICAL-LINK · LOS</span>
+    <span class="sp" style="flex:1"></span>
+    <button class="btn sm ghost" id="devBtn" title="Show the assembly &amp; bytecode">Developer view</button>
+    <button class="btn sm ghost" id="setBtn" title="API key &amp; speed">⚙</button>
+  </div>
+  <div id="chat"></div>
+  <div class="chips" id="chips"></div>
+  <div class="settings" id="settings">
+    <div style="font-family:var(--disp);font-weight:600;margin-bottom:2px">Connect your own AI <span class="dim" style="font-weight:400">(optional)</span></div>
+    <p class="dim" style="font-size:12.5px;line-height:1.6;margin:0 0 8px">The built-ins below need no key. To compile <i>anything</i> you can describe, paste an Anthropic key — it stays <b>in this browser only</b>, talks <b>straight to Anthropic</b> (no BeamClaw server, nothing billed to us), and you can revoke it anytime in your <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic console</a>. Don't want to trust a website with a key? <a href="docs.html">Run BeamClaw locally →</a></p>
+    <input id="key" type="password" placeholder="sk-ant-…" autocomplete="off"/>
+    <label class="rmk" style="display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13px;text-transform:none;letter-spacing:0"><input type="checkbox" id="remember" style="width:auto;margin:0"/> Remember on this device (otherwise it's forgotten when you close the tab)</label>
+    <label style="margin-top:14px">TX speed (ms/bit) — slow it down if the board doesn't catch the beam</label>
+    <input id="bit" type="number" value="90" min="40" max="300"/>
+    <label style="margin-top:14px">Repeats — how many times to send (more = more reliable, a little slower)</label>
+    <input id="copies" type="number" value="2" min="1" max="5"/>
+  </div>
+  <div class="beamzone" id="beamzone">
+    <div class="bz-head"><span class="pulse-dot"></span> transmission bay · hold sensor to target · esc cancels</div>
+    <div class="stage" id="stage">
+      <div id="pad">▣ hold your board's sensor here · tap = fullscreen</div>
+      <div class="stagechrome">
+        <div class="prog"><i id="pb"></i></div>
+        <div class="bstat" id="bstat"></div>
+      </div>
+    </div>
+    <div class="bz-controls">
+      <button class="btn primary" id="beamBtn" disabled>▶ Beam it to my board</button>
+      <button class="btn ghost" id="stopBtn" disabled>■ Stop</button>
+    </div>
+    <div id="confirm">
+      <div class="dim" style="font-size:14px">👀 Now look at your board — the onboard LED should flash <b>3×</b> to confirm it caught the program. Did it?</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <button class="btn primary sm" id="fbWorked">✓ Yes, it worked</button>
+        <button class="btn ghost sm" id="fbRetry">↻ No — beam again, slower</button>
+      </div>
+    </div>
+  </div>
+  <div class="inbar"><input id="say" type="text" placeholder="e.g. blink fast when it gets dark" autocomplete="off"/><button class="btn primary" id="send">Send</button></div>
+</div>
+<p class="dim reveal" style="font-size:13px;margin-top:18px">First time? <a href="flash.html">Flash the BeamClaw firmware to your Arduino →</a> (one-time, from your browser). New here? <a href="docs.html">How it works →</a></p>
+</div></section>
+
+<footer><div class="wrap">
+<div class="row"><a class="brand" href="index.html"><b>BEAM</b>CLAW</a><span class="tagline">agents delivered by light</span><span style="flex:1"></span>
+<a href="index.html">Home</a><a href="flash.html">Flash</a><a href="docs.html">Docs</a></div>
+<div class="note">Built-ins (blink, react-to-light, heartbeat, breathe, strobe, SOS, on/off, buzz) need no key. Add your Anthropic key for free-form requests — it stays in your browser, talks straight to Anthropic, nothing billed to BeamClaw.</div>
+</div></footer>
+<script src="assets/fx.js"></script>
+<script src="assets/app.js"></script>
+</body></html>

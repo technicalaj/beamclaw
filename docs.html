@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>How BeamClaw Works — Program an Arduino by Light (Docs &amp; Wiring)</title>
+<meta name="description" content="How to program an Arduino with light: the screen-to-photoresistor pipeline, wiring (LDR → A0), the 2 KB virtual-machine instruction set, the safety validator, FAQ, limitations and roadmap."/>
+<meta name="keywords" content="program Arduino by light, Arduino LDR wiring, photoresistor data, 2KB virtual machine, optical data transfer Arduino, no IDE firmware, BeamClaw docs"/>
+<link rel="canonical" href="https://beam-claw.com/docs.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="How BeamClaw works — program an Arduino by light"/>
+<meta property="og:description" content="The light pipeline, wiring, the 2 KB instruction set, the safety validator, and an honest list of limitations."/>
+<meta property="og:image" content="assets/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<link rel="stylesheet" href="assets/style.css"/>
+</head><body>
+<div class="bg-deck"></div><div class="bg-grid"></div><div class="bg-scan"></div>
+<canvas id="photons"></canvas>
+
+<nav class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/logo.svg" alt="BeamClaw" style="height:30px;width:auto;display:block"/></a>
+<button class="navtoggle" aria-label="menu" onclick="document.getElementById('nl').classList.toggle('open')">☰</button>
+<div class="links" id="nl"><a href="index.html">Home</a><a href="app.html">Console</a><a href="flash.html">Flash&nbsp;board</a><a href="docs.html" class="active">Docs</a></div>
+<span class="sp"></span><a class="btn sm ghost" href="https://github.com/technicalaj/beamclaw" target="_blank" rel="noopener">GitHub ↗</a>
+</div></nav>
+
+<section style="border-top:0;padding-top:var(--s8)"><div class="wrap">
+<div class="doc">
+<div class="sec-head reveal">
+  <span class="eyebrow">docs</span>
+  <h2 class="h-sec">How BeamClaw works</h2>
+</div>
+
+<div class="pipe-panel panel reveal">
+<pre>English <span class="hl">─▶</span> LLM (or built-in templates) compile to assembly
+       <span class="hl">─▶</span> deterministic assembler + safety validator
+       <span class="hl">─▶</span> framed · whitened · CRC <span class="hl">─▶ LIGHT</span> (screen white/black → LDR)
+       <span class="hl">─▶</span> chip stores it to EEPROM <span class="hl">─▶</span> tiny bytecode VM runs it forever, offline</pre>
+</div>
+<p class="reveal">The LLM only <i>proposes</i> a program. A deterministic assembler turns it into bytecode and a validator proves it's safe — legal opcodes, in-range jumps, never driving the serial pins or the sensor pin, and no tight loop that would starve the chip — <b>before</b> a single bit leaves the screen.</p>
+<img src="assets/architecture.svg" alt="BeamClaw pipeline: compile off-chip, beam by light, run forever on the 2KB chip" loading="lazy" class="reveal" style="display:block;width:100%;border-radius:14px;border:1px solid var(--line);margin:16px 0 6px"/>
+<h3 class="reveal">What a beamed frame looks like</h3>
+<img src="assets/frame.svg" alt="Optical frame: preamble, sync, length, whitened data payload, CRC-8 check byte" loading="lazy" class="reveal" style="display:block;width:100%;border-radius:14px;border:1px solid var(--line);margin-top:10px"/>
+
+<h3 class="reveal">Hardware</h3>
+<p class="reveal">An <b>Arduino Uno</b> (ATmega328, 2&nbsp;KB RAM, ~$3) and a <b>light sensor</b> (an LDR/photoresistor module, ~50¢): <code>S→A0</code>, <code>+→5V</code>, <code>−→GND</code>. The onboard LED is D13. <a href="flash.html">Flash the firmware once →</a></p>
+
+<h3 class="reveal">The 2&nbsp;KB agent VM — instruction set</h3>
+<div class="cmp-wrap reveal" style="margin-top:14px">
+<table class="cmp"><tr><th>Op</th><th>Form</th><th>Does</th></tr>
+<tr><td>LDI</td><td>LDI r, imm</td><td>load a number into a register</td></tr>
+<tr><td>AR</td><td>AR r, pin</td><td>read an analog pin (e.g. the light sensor)</td></tr>
+<tr><td>CMPLT / CMPGT</td><td>CMP r, r2</td><td>compare → set the flag</td></tr>
+<tr><td>JMP / JT / JF</td><td>… label</td><td>jump, or jump if flag true/false</td></tr>
+<tr><td>DWI</td><td>DWI pin, 0|1</td><td>set a pin low/high</td></tr>
+<tr><td>PWMI</td><td>PWMI pin, duty</td><td>analog-write (0–255)</td></tr>
+<tr><td>TGL</td><td>TGL pin</td><td>toggle a pin</td></tr>
+<tr><td>WAITI</td><td>WAITI ms</td><td>pause</td></tr>
+<tr><td>ADD / SUB</td><td>r, r2</td><td>arithmetic</td></tr>
+<tr><td>HALT</td><td>HALT</td><td>stop</td></tr></table>
+</div>
+<p class="dim reveal" style="font-size:13px">Pins: D0–D13, A0–A5 (14–19). Output ops can't target D0/D1 (USB serial) or A0 (the sensor/receiver). Toggle <b>Developer view</b> in the console to see the assembly + bytecode for any agent.</p>
+
+<h3 class="reveal">Built-in behaviours (no key needed)</h3>
+<p class="reveal"><b>blink</b> (any pin/rate) · <b>blink-in-the-dark</b> (reacts to the light sensor) · <b>heartbeat</b> · <b>breathe / fade</b> (PWM glow) · <b>strobe</b> · <b>SOS</b> (Morse) · <b>turn on/off</b> a pin · <b>buzz</b> a pin. The console understands many phrasings, suggests options when unsure, and after a beam it asks you to confirm the board caught it. Add your Anthropic key (⚙) to compile anything you can describe.</p>
+
+<h3 class="reveal">FAQ</h3>
+<div class="grid2">
+<div class="feat panel lift reveal"><h4>Does the chip need internet?</h4><p>No. The LLM runs in your browser/phone and compiles once. The chip runs offline forever.</p></div>
+<div class="feat panel lift reveal d1"><h4>Is an LLM running on 2&nbsp;KB?</h4><p>No — that's impossible. The LLM <i>compiles</i> a tiny program; the 2&nbsp;KB chip just runs it. "LLM-compiled agency," not "LLM on chip."</p></div>
+<div class="feat panel lift reveal"><h4>Why light, not WiFi?</h4><p>No radio means it works air-gapped and where WiFi is banned, with nothing to pair — and one screen can program many chips at once.</p></div>
+<div class="feat panel lift reveal d1"><h4>How fast is it?</h4><p>~10–15 bits/sec over light — a small program beams in a few seconds. It's "compile once, run forever," not streaming.</p></div>
+<div class="feat panel lift reveal"><h4>Other boards?</h4><p>Built and proven on the Uno. The VM is tiny and portable; other AVRs are next.</p></div>
+<div class="feat panel lift reveal d1"><h4>Is it secure?</h4><p>Today, anyone with light in view can beam a program. For sensitive use, add a shared-key signature (HMAC) — on the roadmap.</p></div>
+</div>
+
+<h3 class="reveal">Limitations &amp; roadmap</h3>
+<p class="reveal"><b>Today:</b> slow (~10–15 bps), line-of-sight, one-way, fixed compiled behaviour (not runtime reasoning), no auth. <b>Next:</b> browser flashing polish · two-way uplink → "living firmware" (the LLM recompiles and re-beams) · optical contagion (a program that re-beams itself chip-to-chip) · a richer VM.</p>
+
+<div class="cta" style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap"><a class="btn primary" href="app.html">▶ Try the console</a><a class="btn gold" href="flash.html">⚡ Flash a board</a></div>
+</div>
+</div></section>
+
+<footer><div class="wrap">
+<div class="row"><a class="brand" href="index.html"><b>BEAM</b>CLAW</a><span class="tagline">agents delivered by light</span><span style="flex:1"></span>
+<a href="index.html">Home</a><a href="app.html">Console</a><a href="flash.html">Flash</a></div>
+<div class="note">MIT licensed · agents delivered by light.</div>
+</div></footer>
+<script src="assets/fx.js"></script>
+</body></html>

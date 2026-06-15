@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BeamClaw — Program an Arduino by Light. No Cable, No WiFi, No App.</title>
+<meta name="description" content="Describe what your board should do in plain words. BeamClaw compiles a tiny program and beams it through your screen's light to a $3, radio-less Arduino that then runs it forever — offline. No IDE, no USB, no network."/>
+<meta name="keywords" content="program Arduino by light, wireless Arduino programming, Arduino without USB, no IDE Arduino, optical data transfer, radioless microcontroller, offline Arduino, screen to Arduino, LiFi Arduino, LDR photoresistor data, send code with light"/>
+<link rel="canonical" href="https://beam-claw.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="BeamClaw — talk to a chip, it comes alive by light"/>
+<meta property="og:description" content="A $3, radio-less Arduino that runs your program forever — offline. Describe it in plain words; your screen beams it over by light. No IDE, no USB, no WiFi."/>
+<meta property="og:image" content="assets/og.png"/>
+<meta property="og:url" content="https://beam-claw.com/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="BeamClaw — program an Arduino by light"/>
+<meta name="twitter:description" content="Talk to a chip; it comes alive by light. Radio-less, 2 KB, offline. No IDE, no USB, no WiFi."/>
+<meta name="twitter:image" content="assets/og.png"/>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<link rel="stylesheet" href="assets/style.css"/>
+</head><body>
+<div class="bg-deck"></div><div class="bg-grid"></div><div class="bg-scan"></div>
+<canvas id="photons"></canvas>
+
+<nav class="nav"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/logo.svg" alt="BeamClaw" style="height:30px;width:auto;display:block"/></a>
+<button class="navtoggle" aria-label="menu" onclick="document.getElementById('nl').classList.toggle('open')">☰</button>
+<div class="links" id="nl"><a href="index.html" class="active">Home</a><a href="app.html">Console</a><a href="flash.html">Flash&nbsp;board</a><a href="docs.html">Docs</a></div>
+<span class="sp"></span><a class="btn sm ghost" href="https://github.com/technicalaj/beamclaw" target="_blank" rel="noopener">GitHub ↗</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+<div class="hero-grid">
+  <div class="hero-copy">
+    <span class="eyebrow">agents delivered by light</span>
+    <h1>Talk to a chip.<br/>It comes alive<br/><span class="beam-word">by light.</span></h1>
+    <p class="lead">Describe what your board should do in plain English. BeamClaw writes a tiny program and <b>beams it through your screen's light</b> to a $3, radio-less Arduino — which then runs it <b>forever, offline</b>. No IDE. No USB cable. No WiFi. No app to install.</p>
+    <div class="cta">
+      <a class="btn primary lg" href="app.html">▶ Try the console</a>
+      <a class="btn gold lg" href="flash.html">⚡ Flash my Arduino</a>
+    </div>
+    <div class="pills">
+      <span class="tag ok">no radio</span>
+      <span class="tag">runs in 2&nbsp;KB</span>
+      <span class="tag gold">$3 chip + 50¢ sensor</span>
+      <span class="tag">one screen → many chips</span>
+    </div>
+    <div class="hero-readout">
+      <span>LINK <b>OPTICAL</b></span><span>RATE <b>~10–15 bps</b></span><span>RADIO <b>none</b></span><span>CLOUD <b>$0</b></span>
+    </div>
+  </div>
+
+  <!-- SIGNATURE BEAM: screen → photons → chip -->
+  <div class="beam-stage" aria-hidden="true">
+    <div class="ring" data-depth="0.4"></div>
+    <div class="ring r2" data-depth="0.7"></div>
+    <div class="ring r3" data-depth="1"></div>
+
+    <div class="beam-line" data-depth="0.2">
+      <span class="surge"></span>
+      <span class="ph"></span><span class="ph"></span><span class="ph"></span><span class="ph"></span><span class="ph"></span>
+    </div>
+
+    <div class="beam-node emit" data-depth="0.5">
+      <div class="node-box"><div class="scr"></div></div>
+      <div class="node-label">your <b>screen</b></div>
+    </div>
+    <div class="beam-node recv" data-depth="0.5">
+      <div class="node-box chip"><div class="pins"></div><div class="core"></div></div>
+      <div class="node-label"><b>$3</b> chip + sensor</div>
+    </div>
+
+    <div class="float-chip f1" data-depth="1.4">PREAMBLE · SYNC · <span class="v">CRC</span></div>
+    <div class="float-chip f2" data-depth="1.2">RAM <span class="v">498 B</span></div>
+    <div class="float-chip f3" data-depth="1.6">decoded <span class="v">45/45</span></div>
+  </div>
+</div>
+</div></header>
+
+<!-- FLOATING STAT CARDS -->
+<section style="padding-top:var(--s7)"><div class="wrap">
+<div class="statband">
+  <div class="stat panel lift reveal"><span class="tick"></span><div class="v">498 B</div><div class="l">RAM the runtime uses</div></div>
+  <div class="stat panel lift reveal d1"><span class="tick"></span><div class="v">2 KB</div><div class="l">total chip RAM</div></div>
+  <div class="stat panel lift reveal d2"><span class="tick"></span><div class="v">45/45</div><div class="l">decoded @ 70% loss (sim)</div></div>
+  <div class="stat panel lift gold reveal d3"><span class="tick"></span><div class="v">$0</div><div class="l">cloud cost, forever</div></div>
+</div>
+</div></section>
+
+<!-- GET STARTED IN 3 STEPS -->
+<section id="start"><div class="wrap">
+<div class="sec-coord">// SEQ.01 — ONBOARD</div>
+<div class="sec-head reveal">
+  <span class="eyebrow">get started in 3 steps</span>
+  <h2 class="h-sec">From a sentence to a living chip — in two minutes</h2>
+</div>
+<div class="grid3 steps">
+  <div class="step panel lift reveal"><span class="ghost-num">01</span><div class="n">01 · once</div><h4>Flash it, once</h4><p>Plug your Arduino Uno in and click <a href="flash.html">Flash my Arduino</a>. One press in your browser installs BeamClaw — no Arduino IDE, no toolchain. You never flash again.</p></div>
+  <div class="step panel lift reveal d1"><span class="ghost-num">02</span><div class="n">02 · say it</div><h4>Say what you want</h4><p>Open the <a href="app.html">console</a> and type it plainly: <i>"blink when it gets dark," "buzz on motion."</i> The built-ins are free and instant; add your own AI key for anything you can describe.</p></div>
+  <div class="step panel lift reveal d2"><span class="ghost-num">03</span><div class="n">03 · beam it</div><h4>Hold it to the screen</h4><p>Press Beam. Your screen flickers the program as light; a 50¢ sensor on the chip reads it. The board confirms, stores it, and runs it <b>forever — unplugged</b>.</p></div>
+</div>
+<div class="cta" style="justify-content:center;margin-top:36px"><a class="btn primary" href="flash.html">Start now — flash your board →</a></div>
+</div></section>
+
+<!-- HOW IT WORKS -->
+<section id="how"><div class="wrap">
+<div class="sec-coord">// SEQ.02 — PIPELINE</div>
+<div class="sec-head reveal">
+  <span class="eyebrow">how it actually works</span>
+  <h2 class="h-sec">The model thinks once. The chip acts forever.</h2>
+</div>
+<div class="grid3 steps">
+  <div class="step panel lift reveal"><span class="ghost-num">⌁</span><div class="n">compile</div><h4>Words become a program</h4><p>You describe a behaviour; BeamClaw turns it into tiny, safety-checked bytecode — assembly you never have to see, and a validator that refuses anything unsafe before a single bit leaves your screen.</p></div>
+  <div class="step panel lift reveal d1"><span class="ghost-num">✦</span><div class="n">beam</div><h4>Light carries the code</h4><p>The screen flashes black-and-white; a photoresistor on the chip decodes it. No radio, no pairing, no cable — and because light is a broadcast, <b>one screen can program a whole room of chips at once</b>.</p></div>
+  <div class="step panel lift reveal d2"><span class="ghost-num">∞</span><div class="n">run</div><h4>It lives on its own</h4><p>The chip stores the program and runs it in a 2&nbsp;KB virtual machine, reacting to its sensors — offline, indefinitely. Re-beam in seconds whenever you want it to do something new.</p></div>
+</div>
+<img src="assets/architecture.svg" alt="BeamClaw pipeline: type, compile and safety-check, beam by light; the 2KB chip decodes, stores, and runs it forever" loading="lazy" class="reveal" style="display:block;width:100%;max-width:740px;margin:30px auto 0;border-radius:14px;border:1px solid var(--line)"/>
+<div class="reveal" style="margin:24px auto 0;max-width:740px">
+  <div style="position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0a0e13;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;text-align:center">
+    <div>
+      <div style="font-size:34px;color:#37e0c4;opacity:.85">▶</div>
+      <div style="font-family:var(--disp);font-size:16px;margin-top:6px;color:#eef5f3">See it in action</div>
+      <div class="dim" style="font-size:12.5px;margin-top:4px">demo clip — the screen flickers, the board comes alive (coming soon)</div>
+    </div>
+  </div>
+</div>
+</div></section>
+
+<!-- WHY -->
+<section id="why"><div class="wrap">
+<div class="sec-coord">// SEQ.03 — RATIONALE</div>
+<div class="sec-head reveal">
+  <span class="eyebrow">why beamclaw</span>
+  <h2 class="h-sec">The corner of the world the cloud can't reach</h2>
+</div>
+<div class="grid3">
+  <div class="feat panel lift reveal"><div class="ic">🔦</div><h4>No radio, at all</h4><p>Works air-gapped, in a Faraday cage, on a factory floor, or anywhere WiFi is banned or absent. Nothing to pair, no network, no credentials to leak.</p></div>
+  <div class="feat panel lift reveal d1"><div class="ic">🐜</div><h4>Fits in 2&nbsp;KB</h4><p>The whole runtime uses 498 bytes of RAM on a $3 chip — measured by the compiler, not guessed. Roughly 200× lighter than a WiFi-agent board.</p></div>
+  <div class="feat panel lift reveal d2"><div class="ic">♾️</div><h4>Offline forever</h4><p>The AI compiles your behaviour once, off-chip. After that the board needs no connection, no account, and no cloud — ever. Zero running cost.</p></div>
+  <div class="feat panel lift reveal"><div class="ic">📡</div><h4>One screen → many chips</h4><p>Light is a broadcast medium. Hold a dozen boards up to one monitor and program them all in the same flash. Try that over USB.</p></div>
+  <div class="feat panel lift reveal d1"><div class="ic">🗣️</div><h4>Just talk to it</h4><p>No IDE, no libraries, no compiler install. Describe what you want in a sentence; it compiles, safety-checks, and beams. Beginners ship in minutes.</p></div>
+  <div class="feat panel lift reveal d2"><div class="ic">✅</div><h4>Receipts, not slogans</h4><p>The VM is cross-checked C↔JS, the optical link decodes through 70% packet loss in simulation, and the firmware provably fits 2&nbsp;KB. We show our work.</p></div>
+</div></div></section>
+
+<!-- COMPARISON -->
+<section id="cmp"><div class="wrap">
+<div class="sec-coord">// SEQ.04 — COMPARE</div>
+<div class="sec-head reveal">
+  <span class="eyebrow">an honest comparison</span>
+  <h2 class="h-sec">Different on purpose</h2>
+</div>
+<div class="cmp-wrap reveal">
+<table class="cmp"><tr><th></th><th>BeamClaw</th><th>ESP-Claw / MimiClaw</th><th>USB (Firmata)</th></tr>
+<tr><td>Radio</td><td class="yes">none</td><td class="no">WiFi required</td><td>none (wired)</td></tr>
+<tr><td>Chip RAM</td><td class="yes">2 KB</td><td>≥400 KB</td><td>any</td></tr>
+<tr><td>Runs offline</td><td class="yes">forever</td><td class="no">needs the cloud</td><td>needs a host PC</td></tr>
+<tr><td>How code arrives</td><td class="yes">light</td><td>WiFi / flash</td><td>cable</td></tr>
+<tr><td>Program many at once</td><td class="yes">yes — one screen</td><td class="no">no</td><td class="no">no</td></tr>
+<tr><td>Receiver cost</td><td class="yes">~$3 + 50¢</td><td>~$5–10</td><td>board + cable</td></tr></table>
+</div>
+<p class="dim reveal" style="margin-top:18px;font-size:14px;max-width:860px">We're not claiming to beat the cloud Claws on raw features or speed — they're powerful where there's WiFi and RAM to spare. BeamClaw owns the niche they <i>can't</i> serve: radio-less, 2&nbsp;KB, light-delivered, offline. Built on the shoulders of OpenClaw, ESP-Claw, MimiClaw, the Timex Datalink, ggwave &amp; Microvium.</p>
+<div class="cta" style="justify-content:flex-start;margin-top:28px"><a class="btn primary" href="app.html">▶ Try the console</a><a class="btn ghost" href="docs.html">Read the docs</a></div>
+</div></section>
+
+<!-- FAQ -->
+<section id="faq"><div class="wrap">
+<div class="sec-coord">// SEQ.05 — FAQ</div>
+<div class="sec-head reveal">
+  <span class="eyebrow">quick answers</span>
+  <h2 class="h-sec">Questions people ask first</h2>
+</div>
+<div class="faq-list">
+  <details class="faq-item reveal" open><summary><span class="qn">Q1</span> Can you really program an Arduino with light?<span class="qx">+</span></summary><div class="faq-body">Yes. Your screen flashes the program as on/off light and a 50¢ photoresistor on the chip decodes it — no cable, no radio. It's slow (~10–15 bits/sec), but it only has to run once: compile once, run forever.</div></details>
+  <details class="faq-item reveal"><summary><span class="qn">Q2</span> Do I need the Arduino IDE?<span class="qx">+</span></summary><div class="faq-body">No. You flash BeamClaw to the board one time straight from your browser, then change its behaviour by light from any device — phone, tablet, or laptop.</div></details>
+  <details class="faq-item reveal"><summary><span class="qn">Q3</span> Is an AI running on the chip?<span class="qx">+</span></summary><div class="faq-body">No — that's impossible in 2&nbsp;KB, and we won't pretend otherwise. The AI <i>compiles</i> a tiny program off-chip; the chip just runs it. "LLM-compiled agency," not "an LLM on the chip."</div></details>
+  <details class="faq-item reveal"><summary><span class="qn">Q4</span> Does it cost anything to run?<span class="qx">+</span></summary><div class="faq-body">Nothing. There's no server and no cloud. The built-in behaviours are free; for free-form AI you bring your own key and it talks straight to the provider — nothing billed to us.</div></details>
+</div>
+<p class="dim reveal" style="font-size:13px;margin-top:18px">More in the <a href="docs.html">docs</a>: wiring, the full instruction set, limitations &amp; the roadmap.</p>
+</div></section>
+
+<footer><div class="wrap">
+<div class="row"><a class="brand" href="index.html"><b>BEAM</b>CLAW</a><span class="tagline">agents delivered by light</span><span style="flex:1"></span>
+<a href="app.html">Console</a><a href="flash.html">Flash</a><a href="docs.html">Docs</a><a href="https://github.com/technicalaj/beamclaw" target="_blank" rel="noopener">GitHub</a></div>
+<div class="note">MIT licensed · <span data-year>2026</span> · The chip runs a fixed compiled behaviour (not on-chip cognition). Light delivery is ~10–15 bps, line-of-sight, one-way today. No auth yet — add an HMAC signature for sensitive use.</div>
+</div></footer>
+<script src="assets/fx.js"></script>
+</body></html>

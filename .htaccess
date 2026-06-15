@@ -1,0 +1,24 @@
+# BeamClaw — clean URLs + canonical host (Apache / cPanel)
+
+Options -MultiViews
+RewriteEngine On
+
+# 1) /index.html  or  /index   ->   /
+RewriteCond %{THE_REQUEST} \s/+index(\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L]
+
+# 2) /page.html   ->   /page   (strip the .html extension)
+RewriteCond %{THE_REQUEST} \s/+([^.\s?/]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 3) internally serve /page as /page.html (so links without .html work)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# Friendly 404 -> home
+ErrorDocument 404 /index.html
+
+# (After AutoSSL is active you can force HTTPS by uncommenting:)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
