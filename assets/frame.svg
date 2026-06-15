@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 680 150" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>BeamClaw optical frame structure</title>
+<desc>A beamed frame: preamble, sync word, length, whitened data payload, and a CRC-8 check byte.</desc>
+<rect x="1" y="1" width="678" height="148" rx="14" fill="#0b0f15" stroke="#16252a"/>
+<text x="28" y="34" fill="#37e0c4" font-family="system-ui,sans-serif" font-size="12" letter-spacing="2">ONE BEAMED FRAME</text>
+<!-- segments -->
+<g font-family="system-ui,sans-serif">
+<rect x="40"  y="52" width="120" height="46" rx="6" fill="#0e2a2c" stroke="#37e0c4"/>
+<text x="100" y="74" fill="#9fe9dd" font-size="12" font-weight="600" text-anchor="middle">PREAMBLE</text>
+<text x="100" y="90" fill="#5c8a86" font-size="10.5" text-anchor="middle">0xAA &#215;4</text>
+<rect x="164" y="52" width="86"  height="46" rx="6" fill="#0e2a2c" stroke="#37e0c4"/>
+<text x="207" y="74" fill="#9fe9dd" font-size="12" font-weight="600" text-anchor="middle">SYNC</text>
+<text x="207" y="90" fill="#5c8a86" font-size="10.5" text-anchor="middle">A5 5A</text>
+<rect x="254" y="52" width="56"  height="46" rx="6" fill="#10151c" stroke="#3a4750"/>
+<text x="282" y="74" fill="#cdd8dc" font-size="12" font-weight="600" text-anchor="middle">LEN</text>
+<text x="282" y="90" fill="#6b7d84" font-size="10.5" text-anchor="middle">1 B</text>
+<rect x="314" y="52" width="244" height="46" rx="6" fill="#2a1f0c" stroke="#ffb454"/>
+<text x="436" y="74" fill="#ffd6a0" font-size="12" font-weight="600" text-anchor="middle">DATA (whitened)</text>
+<text x="436" y="90" fill="#a8854e" font-size="10.5" text-anchor="middle">your tiny program</text>
+<rect x="562" y="52" width="78"  height="46" rx="6" fill="#0e2a2c" stroke="#37e0c4"/>
+<text x="601" y="74" fill="#9fe9dd" font-size="12" font-weight="600" text-anchor="middle">CRC-8</text>
+<text x="601" y="90" fill="#5c8a86" font-size="10.5" text-anchor="middle">checks it</text>
+</g>
+<text x="40" y="124" fill="#6b7d84" font-family="system-ui,sans-serif" font-size="11.5">Preamble + sync lock the timing · LEN sizes it · data is whitened for clean light · CRC-8 catches errors before it runs.</text>
+</svg>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 680 440" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>BeamClaw wiring: 3-pin LDR light-sensor module to Arduino Uno</title>
+<desc>The sensor's Signal pin connects to A0, + to 5V, and minus to GND.</desc>
+<rect x="1" y="1" width="678" height="438" rx="16" fill="#0b0f15" stroke="#16252a"/>
+<rect x="1" y="1" width="678" height="4" rx="2" fill="#37e0c4"/>
+<text x="28" y="42" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="21" font-weight="600">Wire the light sensor</text>
+<text x="28" y="64" fill="#95a7ad" font-family="system-ui,sans-serif" font-size="13">3-pin LDR module &#8594; Arduino Uno &#183; point the sensor at your screen &#183; no extra resistor needed</text>
+<path d="M294,190 C370,190 400,196 470,196" fill="none" stroke="#ffb454" stroke-width="3.5"/>
+<path d="M294,245 C370,245 400,236 470,236" fill="none" stroke="#37e0c4" stroke-width="3.5"/>
+<path d="M294,300 C370,300 400,276 470,276" fill="none" stroke="#8a9aa0" stroke-width="3.5"/>
+<rect x="44" y="120" width="250" height="250" rx="12" fill="#0e141b" stroke="#37e0c4" stroke-width="2"/>
+<text x="66" y="152" fill="#37e0c4" font-family="system-ui,sans-serif" font-size="13" letter-spacing="2">ARDUINO UNO</text>
+<rect x="22" y="158" width="24" height="40" rx="3" fill="#1a2530" stroke="#2a3a44"/>
+<text x="34" y="214" fill="#6b7d84" font-family="system-ui,sans-serif" font-size="10" text-anchor="middle">USB</text>
+<circle cx="232" cy="178" r="7" fill="none" stroke="#2a3a44"/><text x="232" y="182" fill="#6b7d84" font-size="9" font-family="system-ui,sans-serif" text-anchor="middle">L</text>
+<text x="214" y="182" fill="#7d8f96" font-family="system-ui,sans-serif" font-size="10" text-anchor="end">D13 LED</text>
+<text x="282" y="194" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="14" text-anchor="end" font-weight="600">5V</text>
+<circle cx="294" cy="190" r="5.5" fill="#ffb454"/>
+<text x="282" y="249" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="14" text-anchor="end" font-weight="600">A0</text>
+<circle cx="294" cy="245" r="5.5" fill="#37e0c4"/>
+<text x="282" y="304" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="14" text-anchor="end" font-weight="600">GND</text>
+<circle cx="294" cy="300" r="5.5" fill="#8a9aa0"/>
+<rect x="470" y="150" width="162" height="172" rx="10" fill="#0e141b" stroke="#ffb454" stroke-width="2"/>
+<text x="551" y="178" fill="#ffb454" font-family="system-ui,sans-serif" font-size="12" letter-spacing="1" text-anchor="middle">LIGHT SENSOR</text>
+<circle cx="551" cy="244" r="26" fill="#0b0f15" stroke="#cfe7e2" stroke-width="1.5"/>
+<polyline points="535,244 542,233 547,255 555,233 560,255 567,244" fill="none" stroke="#cfe7e2" stroke-width="1.6"/>
+<line x1="588" y1="210" x2="568" y2="228" stroke="#ffb454" stroke-width="1.6"/><polygon points="568,228 575,225 573,232" fill="#ffb454"/>
+<line x1="600" y1="226" x2="578" y2="240" stroke="#ffb454" stroke-width="1.6"/><polygon points="578,240 585,238 583,245" fill="#ffb454"/>
+<circle cx="470" cy="196" r="5.5" fill="#ffb454"/><text x="486" y="200" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13" font-weight="600">+</text>
+<circle cx="470" cy="236" r="5.5" fill="#37e0c4"/><text x="486" y="240" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13" font-weight="600">S</text>
+<circle cx="470" cy="276" r="5.5" fill="#8a9aa0"/><text x="486" y="280" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13" font-weight="600">&#8722;</text>
+<line x1="44" y1="392" x2="636" y2="392" stroke="#16252a"/>
+<circle cx="52" cy="416" r="5.5" fill="#37e0c4"/><text x="64" y="420" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13"><tspan font-weight="600">S</tspan> (signal / AO) &#8594; A0</text>
+<circle cx="270" cy="416" r="5.5" fill="#ffb454"/><text x="282" y="420" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13"><tspan font-weight="600">+</tspan> (VCC) &#8594; 5V</text>
+<circle cx="446" cy="416" r="5.5" fill="#8a9aa0"/><text x="458" y="420" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="13"><tspan font-weight="600">&#8722;</tspan> (GND) &#8594; GND</text>
+</svg>

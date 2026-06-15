@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 680 470" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>BeamClaw connection diagram — LDR module to Arduino Uno with pin table</title>
+<desc>Module pin 1 (S) to A0, pin 2 (VCC) to 5V, pin 3 (GND) to GND.</desc>
+<rect x="1" y="1" width="678" height="468" rx="16" fill="#0b0f15" stroke="#16252a"/>
+<rect x="1" y="1" width="678" height="4" rx="2" fill="#37e0c4"/>
+<text x="340" y="44" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="22" font-weight="700" letter-spacing="3" text-anchor="middle">CONNECTION DIAGRAM</text>
+<line x1="234" y1="150" x2="446" y2="150" stroke="#ffd23f" stroke-width="3.5"/>
+<line x1="234" y1="196" x2="446" y2="196" stroke="#ff6b6b" stroke-width="3.5"/>
+<line x1="234" y1="242" x2="446" y2="242" stroke="#aeb9bd" stroke-width="3.5"/>
+<text x="340" y="142" fill="#ffd23f" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">SIGNAL (analog)</text>
+<text x="340" y="188" fill="#ff6b6b" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">VCC &#8594; +5V</text>
+<text x="340" y="234" fill="#aeb9bd" font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">GND</text>
+<rect x="52" y="92" width="182" height="192" rx="10" fill="#0e141b" stroke="#ffb454" stroke-width="2"/>
+<text x="143" y="116" fill="#ffb454" font-family="system-ui,sans-serif" font-size="12" letter-spacing="1" text-anchor="middle">LDR MODULE</text>
+<circle cx="100" cy="150" r="15" fill="#d8c08a" stroke="#b8a06a" stroke-width="1.5"/>
+<polyline points="89,150 95,142 99,158 104,142 108,158 112,150" fill="none" stroke="#6b5a33" stroke-width="1.3"/>
+<rect x="84" y="196" width="34" height="14" rx="2" fill="#0b0f15" stroke="#3a4750"/><text x="101" y="206" fill="#95a7ad" font-family="system-ui,sans-serif" font-size="9" text-anchor="middle">R1 10k</text>
+<text x="224" y="154" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="12" text-anchor="end" font-weight="600">1 &#183; S</text><circle cx="234" cy="150" r="5.5" fill="#ffd23f"/>
+<text x="224" y="200" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="12" text-anchor="end" font-weight="600">2 &#183; VCC</text><circle cx="234" cy="196" r="5.5" fill="#ff6b6b"/>
+<text x="224" y="246" fill="#cdd8dc" font-family="system-ui,sans-serif" font-size="12" text-anchor="end" font-weight="600">3 &#183; GND</text><circle cx="234" cy="242" r="5.5" fill="#aeb9bd"/>
+<rect x="446" y="92" width="184" height="192" rx="10" fill="#11464d" stroke="#37e0c4" stroke-width="2"/>
+<text x="538" y="116" fill="#9fe9dd" font-family="system-ui,sans-serif" font-size="12" letter-spacing="1" text-anchor="middle">ARDUINO UNO</text>
+<rect x="434" y="126" width="26" height="30" rx="3" fill="#c2cacd" stroke="#8a9499"/><text x="447" y="170" fill="#9fe9dd" font-family="system-ui,sans-serif" font-size="8" text-anchor="middle">USB</text>
+<rect x="505" y="200" width="116" height="40" rx="3" fill="#0b0f15" stroke="#2a3a44"/><text x="563" y="224" fill="#56707a" font-family="system-ui,sans-serif" font-size="9" text-anchor="middle">ATmega328</text>
+<circle cx="446" cy="150" r="5.5" fill="#ffd23f"/><text x="458" y="154" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="12" font-weight="600">A0</text><text x="486" y="154" fill="#56707a" font-family="system-ui,sans-serif" font-size="9">ANALOG IN</text>
+<circle cx="446" cy="196" r="5.5" fill="#ff6b6b"/><text x="458" y="200" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="12" font-weight="600">5V</text><text x="486" y="200" fill="#56707a" font-family="system-ui,sans-serif" font-size="9">POWER</text>
+<circle cx="446" cy="242" r="5.5" fill="#aeb9bd"/><text x="458" y="246" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="12" font-weight="600">GND</text>
+<rect x="175" y="312" width="330" height="120" rx="6" fill="#0e141b" stroke="#2a3a44"/>
+<rect x="175" y="312" width="330" height="30" rx="6" fill="#103a3a"/>
+<line x1="285" y1="312" x2="285" y2="432" stroke="#2a3a44"/><line x1="395" y1="312" x2="395" y2="432" stroke="#2a3a44"/>
+<line x1="175" y1="342" x2="505" y2="342" stroke="#2a3a44"/><line x1="175" y1="372" x2="505" y2="372" stroke="#2a3a44"/><line x1="175" y1="402" x2="505" y2="402" stroke="#2a3a44"/>
+<text x="230" y="332" fill="#37e0c4" font-family="system-ui,sans-serif" font-size="11" font-weight="600" text-anchor="middle">MODULE PIN</text>
+<text x="340" y="332" fill="#37e0c4" font-family="system-ui,sans-serif" font-size="11" font-weight="600" text-anchor="middle">FUNCTION</text>
+<text x="450" y="332" fill="#37e0c4" font-family="system-ui,sans-serif" font-size="11" font-weight="600" text-anchor="middle">ARDUINO PIN</text>
+<text x="230" y="362" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">1 &#183; S</text><text x="340" y="362" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">SIGNAL</text><text x="450" y="362" fill="#ffd23f" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">A0</text>
+<text x="230" y="392" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">2</text><text x="340" y="392" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">VCC (+5V)</text><text x="450" y="392" fill="#ff6b6b" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">5V</text>
+<text x="230" y="422" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">3 &#183; &#8722;</text><text x="340" y="422" fill="#eef5f3" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">GND</text><text x="450" y="422" fill="#aeb9bd" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">GND</text>
+</svg>

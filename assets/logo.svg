@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="360" height="80" viewBox="0 0 360 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BeamClaw">
+<g transform="translate(8,8)">
+  <g fill="none" stroke="#37e0c4" stroke-width="3.4" stroke-linecap="round">
+    <path d="M42,21 Q27,32 42,43"/>
+    <path d="M42,13 Q18,32 42,51"/>
+    <path d="M42,5 Q9,32 42,59"/>
+  </g>
+  <circle cx="43" cy="32" r="7.5" fill="#ffb454"/>
+</g>
+<text x="92" y="53" font-family="'Chakra Petch','Space Grotesk',system-ui,'Segoe UI',sans-serif" font-size="38" font-weight="800" letter-spacing="1"><tspan fill="#eef5f3">BEAM</tspan><tspan fill="#37e0c4">CLAW</tspan></text>
+</svg>

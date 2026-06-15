@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BeamClaw mark">
+<g fill="none" stroke="#37e0c4" stroke-width="3.4" stroke-linecap="round">
+  <path d="M42,21 Q27,32 42,43"/>
+  <path d="M42,13 Q18,32 42,51"/>
+  <path d="M42,5 Q9,32 42,59"/>
+</g>
+<circle cx="43" cy="32" r="7.5" fill="#ffb454"/>
+</svg>
